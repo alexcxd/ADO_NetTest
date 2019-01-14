@@ -33,12 +33,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,12 +67,73 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\EF_CodeFirstToNew.cs" />
+    <Compile Include="Migrations\201901130500458_InitialCreate.cs" />
+    <Compile Include="Migrations\201901130500458_InitialCreate.Designer.cs">
+      <DependentUpon>201901130500458_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130534382_AddUrl.cs" />
+    <Compile Include="Migrations\201901130534382_AddUrl.Designer.cs">
+      <DependentUpon>201901130534382_AddUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130546326_Remarks.cs" />
+    <Compile Include="Migrations\201901130546326_Remarks.Designer.cs">
+      <DependentUpon>201901130546326_Remarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130558518_PostAddFieldAddTime.cs" />
+    <Compile Include="Migrations\201901130558518_PostAddFieldAddTime.Designer.cs">
+      <DependentUpon>201901130558518_PostAddFieldAddTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130601288_BlogChangeFiledNameMaxLength.cs" />
+    <Compile Include="Migrations\201901130601288_BlogChangeFiledNameMaxLength.Designer.cs">
+      <DependentUpon>201901130601288_BlogChangeFiledNameMaxLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130603137_BlogDeteleFiledRemarks.cs" />
+    <Compile Include="Migrations\201901130603137_BlogDeteleFiledRemarks.Designer.cs">
+      <DependentUpon>201901130603137_BlogDeteleFiledRemarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130612046_CreateTableUser.cs" />
+    <Compile Include="Migrations\201901130612046_CreateTableUser.Designer.cs">
+      <DependentUpon>201901130612046_CreateTableUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901130623130_UserChangeFiledDisplayNameTodisplay_name.cs" />
+    <Compile Include="Migrations\201901130623130_UserChangeFiledDisplayNameTodisplay_name.Designer.cs">
+      <DependentUpon>201901130623130_UserChangeFiledDisplayNameTodisplay_name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DbUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901130500458_InitialCreate.resx">
+      <DependentUpon>201901130500458_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130534382_AddUrl.resx">
+      <DependentUpon>201901130534382_AddUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130546326_Remarks.resx">
+      <DependentUpon>201901130546326_Remarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130558518_PostAddFieldAddTime.resx">
+      <DependentUpon>201901130558518_PostAddFieldAddTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130601288_BlogChangeFiledNameMaxLength.resx">
+      <DependentUpon>201901130601288_BlogChangeFiledNameMaxLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130603137_BlogDeteleFiledRemarks.resx">
+      <DependentUpon>201901130603137_BlogDeteleFiledRemarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130612046_CreateTableUser.resx">
+      <DependentUpon>201901130612046_CreateTableUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901130623130_UserChangeFiledDisplayNameTodisplay_name.resx">
+      <DependentUpon>201901130623130_UserChangeFiledDisplayNameTodisplay_name.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
