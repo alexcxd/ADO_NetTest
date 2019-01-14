@@ -7,13 +7,13 @@ namespace ADO_NetTest.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class UserAddFiledCountry : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UserAddFiledCountry));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901130500458_InitialCreate"; }
+            get { return "201901140910319_UserAddFiledCountry"; }
         }
         
         string IMigrationMetadata.Source

@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ADO_NetTest.EntityFramework.Model;
+using ADO_NetTest.EntityFramework.Model.Enum;
 
 /*
  *  我的数据位于何处？
@@ -28,32 +30,37 @@ using System.Threading.Tasks;
 namespace ADO_NetTest.EntityFramework
 {
     
-    class EF_CodeFirstToNew
+    class EfCodeFirstToNew
     {
         public static void EF_CodeFirstToNewMain()
         {
             using (var db = new BloggingContext())
             {
                 // Create and save a new Blog
-                Console.Write("Enter a name for a new Blog: ");
-                var name = Console.ReadLine();
+                /*var user = new User
+                {
+                    Name = "wyy",
+                    DisplayName = "15123",
+                    Country = EnumCountry.English
+                };
+                db.Users.Add(user);
+                db.SaveChanges()*/;
 
-                var blog = new Blog { Name = name };
-                db.Blogs.Add(blog);
-                db.SaveChanges();
+                //默认懒惰加载，每一条数据都会访问一次数据库
+                var query = from b in db.Users
+                    orderby b.Name
+                    select b;
+                var result = db.Users.Where(m => m.Country == EnumCountry.Canada);
 
-                // Display all Blogs from the database
-                var query = from b in db.Blogs
-                            orderby b.Name
-                            select b;
-
-                Console.WriteLine("All blogs in the database:");
+                Console.Write(@"姓名|");
+                Console.Write(@"显示名|");
+                Console.WriteLine(@"国家|");
                 foreach (var item in query)
                 {
-                    Console.WriteLine(item.Name);
+                    Console.Write(item.Name + @"|");
+                    Console.Write(item.DisplayName + @"|");
+                    Console.WriteLine(item.Country + @"|");
                 }
-
-                Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
             }
         }
@@ -61,6 +68,7 @@ namespace ADO_NetTest.EntityFramework
 }
 
 /**
+ *  实体 Model中
  *  1.排除类型，使用NotMapped属性或DbModelBuilder.Ignore fluent API。
  *  2.主要密钥约定,否一个类上的属性名为"ID"（不区分大小写），或类名后, 跟"ID"。 
  *  3.关系约定：
@@ -68,52 +76,21 @@ namespace ADO_NetTest.EntityFramework
  *      2)建议您包括表示依赖对象的类型上的外键属性
  *      3）外键不可为 null，则第一个代码设置级联删除的关系。 
  *         如果依赖实体的外键是可以为 null，Code First 不会设置级联删除的关系，并且当删除主体将设置外键为 null。
- * 
+ *  4.枚举：默认情况下，枚举属于int类型 见User
  */
-public class Blog
-{
-    public int BlogId { get; set; }
-
-    [StringLength(100)]
-    public string Name { get; set; }
-
-    public string Url { get; set; }
-
-    public DateTime AddTime { get; set; }
-
-    //导航属性
-    public virtual List<Post> Posts { get; set; }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-    public DateTime AddTime { get; set; }
-
-    //外键属性
-    public int BlogId { get; set; }
-
-    //导航属性
-    public virtual Blog Blog { get; set; }
-}
-
-public class User
-{
-    public int Id { get; set; }
-
-    [StringLength(50)]
-    public string Name { get; set; }
 
 
-    [StringLength(50)]
-    public string DisplayName { get; set; }
-}
+
+
 
 //创建上下文,代表与数据库的会话，以保证查询和保存数据
+[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
 public class BloggingContext : DbContext
 {
+    public BloggingContext() : base("DefaultConnection")
+    {
+    }
+
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<User> Users { get; set; }

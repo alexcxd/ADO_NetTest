@@ -3,7 +3,7 @@ namespace ADO_NetTest.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class AddTable : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,9 @@ namespace ADO_NetTest.Migrations
                 c => new
                     {
                         BlogId = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Url = c.String(),
+                        Name = c.String(maxLength: 100, storeType: "nvarchar"),
+                        Url = c.String(maxLength: 100, storeType: "nvarchar"),
+                        AddTime = c.DateTime(nullable: false, precision: 0),
                     })
                 .PrimaryKey(t => t.BlogId);
             
@@ -22,13 +23,24 @@ namespace ADO_NetTest.Migrations
                 c => new
                     {
                         PostId = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Content = c.String(),
+                        Title = c.String(maxLength: 100, storeType: "nvarchar"),
+                        Content = c.String(maxLength: 100, storeType: "nvarchar"),
+                        AddTime = c.DateTime(nullable: false, precision: 0),
                         BlogId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.PostId)
                 .ForeignKey("dbo.Blogs", t => t.BlogId, cascadeDelete: true)
                 .Index(t => t.BlogId);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        display_name = c.String(maxLength: 50, storeType: "nvarchar"),
+                    })
+                .PrimaryKey(t => t.Id);
             
         }
         
@@ -36,6 +48,7 @@ namespace ADO_NetTest.Migrations
         {
             DropForeignKey("dbo.Posts", "BlogId", "dbo.Blogs");
             DropIndex("dbo.Posts", new[] { "BlogId" });
+            DropTable("dbo.Users");
             DropTable("dbo.Posts");
             DropTable("dbo.Blogs");
         }

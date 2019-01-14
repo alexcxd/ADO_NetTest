@@ -7,13 +7,13 @@ namespace ADO_NetTest.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UserChangeFiledDisplayNameTodisplay_name : IMigrationMetadata
+    public sealed partial class AddTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserChangeFiledDisplayNameTodisplay_name));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901130623130_UserChangeFiledDisplayNameTodisplay_name"; }
+            get { return "201901140903565_AddTable"; }
         }
         
         string IMigrationMetadata.Source

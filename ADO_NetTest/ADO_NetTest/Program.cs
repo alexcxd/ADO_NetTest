@@ -6,15 +6,16 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ADO_NetTest.Ado;
 
 namespace ADO_NetTest
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            EF_CodeFirstToNew.EF_CodeFirstToNewMain();
+            EfCodeFirstToNew.EF_CodeFirstToNewMain();
+            //AdoConnection.AdoConnectionMain();
         }
     }
 }

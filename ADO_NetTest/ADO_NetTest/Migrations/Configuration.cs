@@ -10,7 +10,6 @@ namespace ADO_NetTest.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "BloggingContext";
         }
 
         protected override void Seed(BloggingContext context)
