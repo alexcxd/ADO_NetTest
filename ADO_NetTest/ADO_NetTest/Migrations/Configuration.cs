@@ -9,7 +9,7 @@ namespace ADO_NetTest.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(BloggingContext context)

@@ -75,14 +75,7 @@
     <Compile Include="EntityFramework\Model\Enum\EnumCountry.cs" />
     <Compile Include="EntityFramework\Model\Post.cs" />
     <Compile Include="EntityFramework\Model\User.cs" />
-    <Compile Include="Migrations\201901140903565_AddTable.cs" />
-    <Compile Include="Migrations\201901140903565_AddTable.Designer.cs">
-      <DependentUpon>201901140903565_AddTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901140910319_UserAddFiledCountry.cs" />
-    <Compile Include="Migrations\201901140910319_UserAddFiledCountry.Designer.cs">
-      <DependentUpon>201901140910319_UserAddFiledCountry.cs</DependentUpon>
-    </Compile>
+    <Compile Include="EntityFramework\MyConfiguration .cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,14 +85,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901140903565_AddTable.resx">
-      <DependentUpon>201901140903565_AddTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901140910319_UserAddFiledCountry.resx">
-      <DependentUpon>201901140910319_UserAddFiledCountry.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

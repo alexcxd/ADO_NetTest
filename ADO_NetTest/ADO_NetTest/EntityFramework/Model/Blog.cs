@@ -26,6 +26,7 @@ namespace ADO_NetTest.EntityFramework.Model
 
         public DateTime AddTime { get; set; }
 
+
         //导航属性
         public virtual List<Post> Posts { get; set; }
     }
