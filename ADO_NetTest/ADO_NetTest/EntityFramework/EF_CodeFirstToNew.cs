@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.Migrations.History;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ADO_NetTest.EntityFramework.Model;
 using ADO_NetTest.EntityFramework.Model.Enum;
+using ADO_NetTest.EntityFramework.Service;
 
 /*
  *  我的数据位于何处？
@@ -19,8 +21,8 @@ using ADO_NetTest.EntityFramework.Model.Enum;
  *  1.Enable-Migrations 生成Migrations文件夹下相关的内容，仅第一次时使用
  *      1)Configuration.cs：此文件包含迁移将用于迁移的设置 bloggingcontext。
  *      2)<时间戳>_InitialCreate.cs 这是你第一次迁移，它表示已应用到数据库
- *      3)– EnableAutomaticMigrations用于自动迁移的切换
- *      4)InitialCreate – IgnoreChanges 创建空迁移，它只是将_ _MigrationsHistory 表加入数据库
+ *      3)–EnableAutomaticMigrations用于自动迁移的切换
+ *      4)InitialCreate –IgnoreChanges 创建空迁移，它只是将_ _MigrationsHistory 表加入数据库
  *  2.Add-migration [Name] 检查自上次迁移以来的更改和搭建基架以新的迁移与所发现的任何更改。
  *    即生成脚本，并在下一步运行
  *      1)可以用于修改字段约束、添加删除字段
@@ -31,32 +33,53 @@ using ADO_NetTest.EntityFramework.Model.Enum;
  *  4.Fluent API 是指定数据批注可以做另外一些更高级的配置不可能的数据注释的一切内容的模型配置的更高级的方法。
  *  
  *  5.自动迁移和手动迁移 两者的根本区别是自动迁移不需要输入Add-migration [Name]生成脚本
+ *      1)在设置了自动迁移之后依旧可以使用手动迁移，并且手动迁移优先
  *  
- *  6.延迟加载和
+ *  6.migrate.exe:放置于与.dll或者.exe同一文件夹可以使用命令行窗口进行迁移。
+ *      1)Migrate.exe ADO_NetTest.exe /startupConfigurationFile=”ADO_NetTest.exe.config” 进行迁移
+ *      2)Migrate.exe /? 显示帮助文档
+ *      
+ *  7.延迟加载、贪婪加载和显式加载 详细见QueryService
+ *      1)贪婪加载：加载的东西一次性读取
+ *      2)延迟加载：即当我们需要用到的时候才进行加载（读取）,例for里面一次只读一条数据
+ *      3)显式加载：禁用延迟加载后，可以使用显式加载使用延迟加载
  */
 namespace ADO_NetTest.EntityFramework
 {
-    
+
     class EfCodeFirstToNew
     {
         public static void EF_CodeFirstToNewMain()
         {
+            //设置初始化程序
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<BloggingContext, Configuration>());
+
+            //var service = new BlogService();
+            //service.GetBlogToAddPost();
+
+
+
+            var queryService = new QueryService();
+            //queryService.EagerlyLoading();
+            //queryService.LazyLoaging();
+            queryService.ExplicitlyLoaging();
+
             using (var db = new BloggingContext())
             {
                 // Create and save a new Blog
                 var user = new User
                 {
-                    Name = "cxd",
-                    DisplayName = "alex",
-                    Country = EnumCountry.Canada
+                    Name = "ygs",
+                    DisplayName = "xy",
+                    Country = EnumCountry.English
                 };
                 db.Users.Add(user);
-                db.SaveChanges();
+                //db.SaveChanges();
 
-                //默认懒惰加载，每一条数据都会访问一次数据库
+                //默认延迟加载，每一条数据都会访问一次数据库
                 var query = from b in db.Users
-                    orderby b.Name
-                    select b;
+                            orderby b.Name
+                            select b;
                 var result = db.Users.Where(m => m.Country == EnumCountry.Canada);
 
                 Console.Write(@"姓名|");
@@ -71,6 +94,7 @@ namespace ADO_NetTest.EntityFramework
                 Console.ReadKey();
             }
         }
+
     }
 }
 
@@ -95,12 +119,15 @@ namespace ADO_NetTest.EntityFramework
 public class BloggingContext : DbContext
 {
     public BloggingContext() : base("DefaultConnection")
-    {   
+    {
+        // 禁用延迟加载
+        Configuration.LazyLoadingEnabled = false;
     }
 
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Comment> Comments { get; set; }
 
     //Fluent API
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -108,5 +135,12 @@ public class BloggingContext : DbContext
         modelBuilder.Entity<User>()
             .Property(m => m.DisplayName)
             .HasColumnName("display_name");
+
+        // 禁用一对多级联删除
+        //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        // 禁用多对多级联删除
+        //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+        // 禁用默认表名复数形式
+        //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
     }
 }

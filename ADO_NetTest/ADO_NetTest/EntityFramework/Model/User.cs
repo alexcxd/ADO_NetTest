@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using ADO_NetTest.EntityFramework.Model.Enum;
 
 namespace ADO_NetTest.EntityFramework.Model
@@ -15,5 +17,10 @@ namespace ADO_NetTest.EntityFramework.Model
         public string DisplayName { get; set; }
 
         public EnumCountry Country { get; set; }
+
+        public DateTime? AddTime { get; set; }
+
+        //导航属性
+        public virtual List<Comment> Comments { get; set; }
     }
 }
