@@ -7,18 +7,18 @@ namespace ADO_NetTest.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UserAddFiledAddTime : IMigrationMetadata
+    public sealed partial class CreateTableOrderANDEmployee : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserAddFiledAddTime));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTableOrderANDEmployee));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901160639344_UserAddFiledAddTime"; }
+            get { return "201902020821178_CreateTableOrderANDEmployee"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

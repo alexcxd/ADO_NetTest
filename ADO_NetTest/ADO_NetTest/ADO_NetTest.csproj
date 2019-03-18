@@ -81,13 +81,21 @@
     <Compile Include="EntityFramework\Model\Comment.cs" />
     <Compile Include="EntityFramework\Model\Enum\EnumCountry.cs" />
     <Compile Include="EntityFramework\Model\Post.cs" />
+    <Compile Include="EntityFramework\Model\TSQL\Employee.cs" />
+    <Compile Include="EntityFramework\Model\TSQL\Order.cs" />
     <Compile Include="EntityFramework\Model\User.cs" />
     <Compile Include="EntityFramework\MyConfiguration .cs" />
     <Compile Include="EntityFramework\Service\BlogService.cs" />
+    <Compile Include="EntityFramework\Service\TSQL\EmployeeService.cs" />
     <Compile Include="EntityFramework\Service\QueryService.cs" />
-    <Compile Include="Migrations\201901160639344_UserAddFiledAddTime.cs" />
-    <Compile Include="Migrations\201901160639344_UserAddFiledAddTime.Designer.cs">
-      <DependentUpon>201901160639344_UserAddFiledAddTime.cs</DependentUpon>
+    <Compile Include="EntityFramework\Service\TSQL\OrderService.cs" />
+    <Compile Include="Migrations\201902010800363_CreateTable.cs" />
+    <Compile Include="Migrations\201902010800363_CreateTable.Designer.cs">
+      <DependentUpon>201902010800363_CreateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902020821178_CreateTableOrderANDEmployee.cs" />
+    <Compile Include="Migrations\201902020821178_CreateTableOrderANDEmployee.Designer.cs">
+      <DependentUpon>201902020821178_CreateTableOrderANDEmployee.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -100,8 +108,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901160639344_UserAddFiledAddTime.resx">
-      <DependentUpon>201901160639344_UserAddFiledAddTime.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902010800363_CreateTable.resx">
+      <DependentUpon>201902010800363_CreateTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902020821178_CreateTableOrderANDEmployee.resx">
+      <DependentUpon>201902020821178_CreateTableOrderANDEmployee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

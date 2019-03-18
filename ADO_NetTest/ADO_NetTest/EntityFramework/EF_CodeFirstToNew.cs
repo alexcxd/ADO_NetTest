@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ADO_NetTest.EntityFramework.Model;
 using ADO_NetTest.EntityFramework.Model.Enum;
+using ADO_NetTest.EntityFramework.Model.TSQL;
 using ADO_NetTest.EntityFramework.Service;
+using ADO_NetTest.EntityFramework.Service.TSQL;
 
 /*
  *  我的数据位于何处？
@@ -62,7 +64,13 @@ namespace ADO_NetTest.EntityFramework
             var queryService = new QueryService();
             //queryService.EagerlyLoading();
             //queryService.LazyLoaging();
-            queryService.ExplicitlyLoaging();
+            //queryService.ExplicitlyLoaging();
+
+            var employeeService = new EmployeeService();
+            employeeService.AddEmplyeeList();
+            
+            var orderService = new OrderService();
+            //orderService.AddOrderList();
 
             using (var db = new BloggingContext())
             {
@@ -115,10 +123,10 @@ namespace ADO_NetTest.EntityFramework
 
 
 //创建上下文,代表与数据库的会话，以保证查询和保存数据
-[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+//[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
 public class BloggingContext : DbContext
 {
-    public BloggingContext() : base("DefaultConnection")
+    public BloggingContext() : base("TSqlTest")
     {
         // 禁用延迟加载
         Configuration.LazyLoadingEnabled = false;
@@ -127,6 +135,8 @@ public class BloggingContext : DbContext
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<Order> Orders { get; set; }
     public DbSet<Comment> Comments { get; set; }
 
     //Fluent API
