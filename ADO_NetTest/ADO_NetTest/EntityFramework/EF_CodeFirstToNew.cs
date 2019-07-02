@@ -13,43 +13,43 @@ using ADO_NetTest.EntityFramework.Model.TSQL;
 using ADO_NetTest.EntityFramework.Service;
 using ADO_NetTest.EntityFramework.Service.TSQL;
 
-/*
- *  我的数据位于何处？
- *  1.如果本地 SQL Express 实例不可用 （默认情况下使用 Visual Studio 2010 安装） 然后代码优先已创建了数据库在该实例上
- *  2.如果 SQL Express 不可用，则 Code First 将尝试并使用LocalDB （默认情况下使用 Visual Studio 2012 安装）
- *  3.派生上下文中，在本例中是完全限定名称命名数据库CodeFirstNewDatabaseSample.BloggingContext
- *  
- *  处理模型更改
- *  1.Enable-Migrations 生成Migrations文件夹下相关的内容，仅第一次时使用
- *      1)Configuration.cs：此文件包含迁移将用于迁移的设置 bloggingcontext。
- *      2)<时间戳>_InitialCreate.cs 这是你第一次迁移，它表示已应用到数据库
- *      3)–EnableAutomaticMigrations用于自动迁移的切换
- *      4)InitialCreate –IgnoreChanges 创建空迁移，它只是将_ _MigrationsHistory 表加入数据库
- *  2.Add-migration [Name] 检查自上次迁移以来的更改和搭建基架以新的迁移与所发现的任何更改。
- *    即生成脚本，并在下一步运行
- *      1)可以用于修改字段约束、添加删除字段
- *      2)可用与创建删除表
- *  3.Update-database 更新数据库
- *      1)–Verbose 查看正在运行的sql
- *  
- *  4.Fluent API 是指定数据批注可以做另外一些更高级的配置不可能的数据注释的一切内容的模型配置的更高级的方法。
- *  
- *  5.自动迁移和手动迁移 两者的根本区别是自动迁移不需要输入Add-migration [Name]生成脚本
- *      1)在设置了自动迁移之后依旧可以使用手动迁移，并且手动迁移优先
- *  
- *  6.migrate.exe:放置于与.dll或者.exe同一文件夹可以使用命令行窗口进行迁移。
- *      1)Migrate.exe ADO_NetTest.exe /startupConfigurationFile=”ADO_NetTest.exe.config” 进行迁移
- *      2)Migrate.exe /? 显示帮助文档
- *      
- *  7.延迟加载、贪婪加载和显式加载 详细见QueryService
- *      1)贪婪加载：加载的东西一次性读取
- *      2)延迟加载：即当我们需要用到的时候才进行加载（读取）,例for里面一次只读一条数据
- *      3)显式加载：禁用延迟加载后，可以使用显式加载使用延迟加载
- */
 namespace ADO_NetTest.EntityFramework
 {
-
-    class EfCodeFirstToNew
+    /*
+     *  我的数据位于何处？
+     *  1.如果本地 SQL Express 实例不可用 （默认情况下使用 Visual Studio 2010 安装） 然后代码优先已创建了数据库在该实例上
+     *  2.如果 SQL Express 不可用，则 Code First 将尝试并使用LocalDB （默认情况下使用 Visual Studio 2012 安装）
+     *  3.派生上下文中，在本例中是完全限定名称命名数据库CodeFirstNewDatabaseSample.BloggingContext
+     *  
+     *  处理模型更改
+     *  1.Enable-Migrations 生成Migrations文件夹下相关的内容，仅第一次时使用
+     *      1)Configuration.cs：此文件包含迁移将用于迁移的设置 bloggingcontext。
+     *      2)<时间戳>_InitialCreate.cs 这是你第一次迁移，它表示已应用到数据库
+     *      3)–EnableAutomaticMigrations用于自动迁移的切换
+     *      4)InitialCreate –IgnoreChanges 创建空迁移，它只是将_ _MigrationsHistory 表加入数据库
+     *  2.Add-migration [Name] 检查自上次迁移以来的更改和搭建基架以新的迁移与所发现的任何更改。
+     *    即生成脚本，并在下一步运行
+     *      1)可以用于修改字段约束、添加删除字段
+     *      2)可用与创建删除表
+     *  3.Update-database 更新数据库
+     *      1)–Verbose 查看正在运行的sql
+     *      2)可以不使用Add-migration（即不生成历史迁移相关的.cs文件），实现自动迁移
+     *  
+     *  4.Fluent API 是指定数据批注可以做另外一些更高级的配置不可能的数据注释的一切内容的模型配置的更高级的方法。
+     *  
+     *  5.自动迁移和手动迁移 两者的根本区别是自动迁移不需要输入Add-migration [Name]生成脚本
+     *      1)在设置了自动迁移之后依旧可以使用手动迁移，并且手动迁移优先
+     *  
+     *  6.migrate.exe:放置于与.dll或者.exe同一文件夹可以使用命令行窗口进行迁移。
+     *      1)Migrate.exe ADO_NetTest.exe /startupConfigurationFile=”ADO_NetTest.exe.config” 进行迁移
+     *      2)Migrate.exe /? 显示帮助文档
+     *      
+     *  7.延迟加载、贪婪加载和显式加载 详细见QueryService
+     *      1)贪婪加载：加载的东西一次性读取
+     *      2)延迟加载：即当我们需要用到的时候才进行加载（读取）,例for里面一次只读一条数据
+     *      3)显式加载：禁用延迟加载后，可以使用显式加载使用延迟加载
+     */
+    public class EfCodeFirstToNew
     {
         public static void EF_CodeFirstToNewMain()
         {
